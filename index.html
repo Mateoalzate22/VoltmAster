@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Volt mAster | Ingeniería Eléctrica Industrial</title>
+    
+    <!-- Tailwind CSS (CDN) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Tailwind Config -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            deep: '#001533',   
+                            royal: '#002366',  
+                            electric: '#00A3FF', 
+                            light: '#F0F4F8',  
+                            white: '#FFFFFF',  
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Oswald', 'sans-serif'],
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'scroll': 'scroll 30s linear infinite',
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    },
+                    keyframes: {
+                        'float': {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        },
+                        'scroll': {
+                            '0%': { transform: 'translateX(0)' },
+                            '100%': { transform: 'translateX(-100%)' },
+                        }
+                    },
+                    boxShadow: {
+                        'soft': '0 10px 40px -10px rgba(0, 35, 102, 0.08)',
+                        'glow': '0 0 20px rgba(0, 163, 255, 0.3)',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Oswald:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- AOS Library CSS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="antialiased selection:bg-brand-electric selection:text-white">
+
+    <!-- TOP BAR (Responsive: Hidden on mobile) -->
+    <div id="inicio" class="bg-[rgb(1,24,52)] text-gray-400 text-xs py-2 border-b border-white/5 relative z-[60]">
+        <div class="container mx-auto px-6 flex flex-col xl:flex-row justify-between items-center gap-2 xl:gap-0 text-center xl:text-left">
+            <!-- Contactos -->
+            <div class="hidden md:flex flex-col md:flex-row items-center gap-2 md:gap-6">
+                <a href="https://wa.me/573117050755" target="_blank" class="hover:text-brand-electric transition-colors flex items-center gap-2 font-medium group">
+                    <i class="fab fa-whatsapp text-green-500 text-sm group-hover:text-green-400"></i> +57 3117050755
+                </a>
+                <a href="https://wa.me/3017819343" target="_blank" class="hover:text-brand-electric transition-colors flex items-center gap-2 font-medium group">
+                    <i class="fab fa-whatsapp text-green-500 text-sm group-hover:text-green-400"></i> +57 3017819343
+                </a>
+                <a href="mailto:voltmaster542@gmail.com?subject=Consulta sobre servicios" class="hover:text-brand-electric transition-colors flex items-center gap-2 font-medium hidden lg:flex">
+                    <i class="fas fa-envelope text-brand-electric"></i> voltmaster542@gmail.com
+                </a>
+            </div>
+            <!-- Horarios y Redes -->
+            <div class="flex flex-col md:flex-row items-center gap-2 md:gap-6 text-gray-500 w-full md:w-auto justify-center">
+                <span class="hidden md:flex items-center gap-2">
+                    <i class="far fa-clock text-brand-electric"></i> 
+                    Lunes a Viernes: 7am-6pm | Sábado: 8am-12pm
+                </span>
+                <div class="flex items-center gap-4 text-brand-electric/80">
+                    <span class="hidden md:inline text-gray-600 mr-1 text-[10px] uppercase tracking-widest">Síguenos:</span>
+                    <a href="#" class="hover:text-white transition-colors"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" class="hover:text-white transition-colors"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="hover:text-white transition-colors"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="hover:text-white transition-colors"><i class="fab fa-tiktok"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navbar (FIXED COLOR: RGB(1, 24, 52)) -->
+    <!-- Se usa bg-[rgb(1,24,52)] para forzar el color exacto sin transparencia -->
+    <nav id="navbar" class="sticky top-0 w-full z-50 py-1 bg-[rgb(1,24,52)] border-b border-white/5 shadow-lg transition-all duration-300">
+        <div class="container mx-auto px-6 flex justify-between items-center relative">
+            
+            <!-- Logo Section (Limpio y directo) -->
+            <a href="#" class="flex items-center group">
+                <!-- Imagen del logo azul, sin paddings extraños -->
+                <img src="Imagenes/logo_azul.jpg" alt="Volt mAster Logo" class="h-14 md:h-20 w-auto object-contain block p-0 m-0">
+            </a>
+
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex items-center gap-8">
+                <a href="#inicio" class="text-sm font-semibold tracking-wider text-white hover:text-brand-electric transition-colors relative group">
+                    INICIO <span class="absolute -bottom-1 left-0 w-0 h-[2px] bg-brand-electric transition-all duration-300 group-hover:w-full"></span>
+                </a>
+                <a href="#servicios" class="text-sm font-semibold tracking-wider text-white hover:text-brand-electric transition-colors relative group">
+                    SERVICIOS <span class="absolute -bottom-1 left-0 w-0 h-[2px] bg-brand-electric transition-all duration-300 group-hover:w-full"></span>
+                </a>
+                <a href="#proyectos" class="text-sm font-semibold tracking-wider text-white hover:text-brand-electric transition-colors relative group">
+                    PROYECTOS <span class="absolute -bottom-1 left-0 w-0 h-[2px] bg-brand-electric transition-all duration-300 group-hover:w-full"></span>
+                </a>
+                <a href="#contacto" class="px-6 py-2 border border-brand-electric text-brand-electric hover:bg-brand-electric hover:text-white transition-all duration-300 font-bold tracking-wider rounded shadow-[0_0_15px_rgba(0,163,255,0.2)]">
+                    COTIZAR
+                </a>
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <button class="md:hidden text-white text-2xl hover:text-brand-electric transition-colors focus:outline-none" id="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobile-menu" class="hidden md:hidden absolute top-full left-0 w-full bg-[rgb(0,21,51)] border-t border-white/10 shadow-2xl transition-all duration-300 origin-top">
+            <div class="flex flex-col p-6 space-y-6">
+                <a href="#inicio" class="mobile-link text-white hover:text-brand-electric font-semibold tracking-wider text-lg border-b border-white/5 pb-2">INICIO</a>
+                <a href="#servicios" class="mobile-link text-white hover:text-brand-electric font-semibold tracking-wider text-lg border-b border-white/5 pb-2">SERVICIOS</a>
+                <a href="#proyectos" class="mobile-link text-white hover:text-brand-electric font-semibold tracking-wider text-lg border-b border-white/5 pb-2">PROYECTOS</a>
+                <a href="#contacto" class="mobile-link w-full text-center px-6 py-3 bg-brand-electric text-white font-bold tracking-wider rounded shadow-glow">
+                    COTIZAR AHORA
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative h-[95vh] w-full flex items-center overflow-hidden bg-brand-deep">
+        <div class="absolute inset-0 z-0">
+            <img src="https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?q=80&w=2070&auto=format&fit=crop" class="w-full h-full object-cover opacity-30" id="hero-bg" alt="Hero">
+            <div class="absolute inset-0 bg-gradient-to-r from-brand-deep via-brand-deep/80 to-transparent"></div>
+            <div class="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-brand-deep to-transparent"></div>
+        </div>
+        <svg class="absolute inset-0 w-full h-full z-0 opacity-20 pointer-events-none mix-blend-screen" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0,100 Q400,100 400,300 T800,500 T1200,300" fill="none" stroke="#00A3FF" stroke-width="1.5" class="circuit-path" />
+            <path d="M-100,600 Q200,600 500,400 T900,200 T1400,400" fill="none" stroke="#00A3FF" stroke-width="1" class="circuit-path" style="animation-delay: 1s;" />
+        </svg>
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="max-w-4xl">
+                <div class="inline-flex items-center gap-3 mb-6 px-4 py-2 rounded-full bg-brand-electric/10 border border-brand-electric/30 backdrop-blur-md shadow-[0_0_15px_rgba(0,163,255,0.1)]" data-aos="fade-right">
+                    <span class="w-2 h-2 rounded-full bg-brand-electric animate-pulse"></span>
+                    <span class="text-brand-electric font-mono tracking-widest text-xs uppercase font-bold">Expertos en Soluciones Electromecánicas Integrales</span>
+                </div>
+                <h1 id="hero-headline" class="text-5xl md:text-7xl lg:text-8xl font-bold text-white mb-8 leading-[0.9]">
+                    INGENIERÍA QUE <br>
+                    <span class="text-brand-electric text-glow">MUEVE EL FUTURO</span>
+                </h1>
+                <p class="text-gray-300 text-lg md:text-xl max-w-2xl mb-12 font-light leading-relaxed pl-6 border-l-4 border-brand-electric" data-aos="fade-up" data-aos-delay="200">
+                    Líderes en mantenimiento preventivo y correctivo (eléctrico y mecánico). Garantizamos continuidad operativa con estándares RETIE para Industria, Comercio y Hogar.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-6" data-aos="fade-up" data-aos-delay="400">
+                    <a href="#contacto" class="px-10 py-4 bg-brand-electric text-white font-bold tracking-widest rounded-sm hover:bg-white hover:text-brand-deep transition-all duration-300 shadow-[0_0_30px_rgba(0,163,255,0.4)] flex items-center justify-center gap-3 group">
+                        CONTACTAR EXPERTO <i class="fas fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+                    </a>
+                    <a href="#portafolio" class="px-10 py-4 border border-white/20 text-white font-semibold tracking-widest rounded-sm hover:bg-brand-electric hover:text-white transition-all duration-300 font-bold tracking-wider rounded shadow-[0_0_15px_rgba(0,163,255,0.2)]">
+                        PORTAFOLIO
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="absolute -right-40 top-1/4 w-[600px] h-[600px] bg-brand-electric/10 rounded-full blur-[120px] pointer-events-none"></div>
+    </section>
+
+
+    <!-- En esta parte funciona el carrucel para un futuro poner los nombres de las empresas, por el momento se deja un ejemplo de como seria. 
+     No se modificara el js de animaciones, se queda tal cual.-->
+    <!-- Clients Marquee -->
+    <!-- <section class="py-10 bg-white border-b border-slate-100 overflow-hidden relative">
+        <div class="container mx-auto px-6 mb-8 text-center">
+            <p class="text-slate-400 text-lg font-bold tracking-[0.4em] uppercase">Confianza Industrial</p>
+        </div>
+        <div class="relative w-full overflow-hidden mask-gradient">
+            <div class="flex w-[200%] animate-scroll">
+                <div class="flex w-1/2 justify-around items-center gap-12 px-6">
+                    <span class="text-2xl font-display font-bold text-slate-400 hover:text-brand-royal transition-colors cursor-default">INDUSTRIAS <span class="text-brand-electric">ALPHA</span></span>
+                    <span class="text-2xl font-display font-bold text-slate-400 hover:text-brand-royal transition-colors cursor-default">GRUPO <span class="text-brand-electric">OMEGA</span></span>
+                    <span class="text-2xl font-display font-bold text-slate-400 hover:text-brand-royal transition-colors cursor-default">CONSTRUCTORA <span class="text-brand-electric">BETA</span></span>
+                    <span class="text-2xl font-display font-bold text-slate-400 hover:text-brand-royal transition-colors cursor-default">TECH <span class="text-brand-electric">SOLUTIONS</span></span>
+                     <span class="text-2xl font-display font-bold text-slate-400 hover:text-brand-royal transition-colors cursor-default">VOLT <span class="text-brand-electric">MASTER</span></span>
+                </div>
+                <div class="flex w-1/2 justify-around items-center gap-12 px-6">
+                    <span class="text-2xl font-display font-bold text-slate-400 hover:text-brand-royal transition-colors cursor-default">INDUSTRIAS <span class="text-brand-electric">ALPHA</span></span>
+                    <span class="text-2xl font-display font-bold text-slate-400 hover:text-brand-royal transition-colors cursor-default">GRUPO <span class="text-brand-electric">OMEGA</span></span>
+                    <span class="text-2xl font-display font-bold text-slate-400 hover:text-brand-royal transition-colors cursor-default">CONSTRUCTORA <span class="text-brand-electric">BETA</span></span>
+                    <span class="text-2xl font-display font-bold text-slate-400 hover:text-brand-royal transition-colors cursor-default">TECH <span class="text-brand-electric">SOLUTIONS</span></span>
+                </div>
+            </div>
+        </div>
+    </section> -->
+
+
+
+    <!-- Services Section -->
+    <section id="servicios" class="py-20 bg-brand-light relative overflow-hidden">
+        <div class="absolute top-0 right-0 w-1/3 h-full bg-brand-electric/5 blur-[120px]"></div>
+        <div class="absolute bottom-0 left-0 w-1/4 h-1/2 bg-brand-royal/5 blur-[100px]"></div>
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="text-center mb-20" data-aos="fade-up">
+                <span class="text-brand-electric font-bold tracking-[0.2em] text-lg uppercase">Soluciones Integrales</span>
+                <h2 class="text-4xl md:text-6xl font-bold text-brand-royal mt-4 mb-6">NUESTROS <span class="text-brand-electric">SERVICIOS</span></h2>
+                <div class="h-1 w-24 bg-gradient-to-r from-transparent via-brand-royal to-transparent mx-auto rounded-full mb-6"></div>
+                <p class="text-slate-500 max-w-2xl mx-auto">Calidad certificada y tecnología de punta para su infraestructura.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Service Cards -->
+                 <!-- Service 1- -->
+                <div class="group relative h-[420px] bg-white rounded-2xl overflow-hidden cursor-pointer shadow-soft hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 hover:border hover:border-brand-electric/30" data-aos="fade-up" data-aos-delay="300">
+                    <div class="absolute top-0 left-0 w-full h-1/2 overflow-hidden">
+                        <div class="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110" style="background-image: url(Imagenes/mantenimiento.jpeg);"></div>
+                        <div class="absolute inset-0 bg-brand-royal/10 group-hover:bg-brand-royal/0 transition-colors"></div>
+                    </div>
+                    <div class="absolute top-1/2 left-0 w-full h-1/2 bg-white p-8 flex flex-col justify-between relative z-10">
+                        <div class="absolute -top-10 right-8 w-16 h-16 bg-brand-electric rounded-xl shadow-lg flex items-center justify-center text-white text-2xl group-hover:bg-brand-royal transition-colors transform group-hover:scale-110">
+                            <i class="fas fa-tools"></i>
+                        </div>
+                        <div>
+                            <span class="text-4xl font-display font-bold text-slate-100 absolute bottom-4 right-4 z-0 pointer-events-none group-hover:text-slate-200 transition-colors">01</span>
+                            <h3 class="text-2xl font-bold text-brand-royal mb-3 font-display uppercase tracking-wide relative z-10">Mantenimiento Integral</h3>
+                            <p class="text-slate-500 text-sm leading-relaxed relative z-10 line-clamp-3 group-hover:text-slate-700 transition-colors">Planes preventivos y correctivos para sistemas eléctricos y mecánicos. Garantice su operación en Industria, Comercio y Hogar.</p>
+                        </div>
+
+                        <button class="service-btn text-brand-electric text-xs font-bold tracking-widest uppercase flex items-center gap-2 group-hover:text-brand-royal transition-colors mt-4 bg-transparent border-none cursor-pointer"
+                            data-title="Montaje Industrial"
+                            data-desc="Ofrecemos un servicio de mantenimiento integral diseñado para minimizar tiempos de inactividad y prevenir fallas costosas. Nuestro equipo experto diagnostica y repara averías tanto eléctricas como mecánicas."
+                            data-image="Imagenes/mantenimiento.jpeg">
+                            Ver Más <i class="fas fa-arrow-right transform group-hover:translate-x-1 transition-transform"></i>
+                        </button>
+
+                        <!-- Por si alun día escalar la pagina -->
+                        <!-- <span class="text-brand-electric text-xs font-bold tracking-widest uppercase flex items-center gap-2 group-hover:text-brand-royal transition-colors mt-4">Ver Más <i class="fas fa-arrow-right transform group-hover:translate-x-1 transition-transform"></i></span> -->
+                    </div>
+                </div>
+                <!-- Service 2- -->
+                <div class="group relative h-[420px] bg-white rounded-2xl overflow-hidden cursor-pointer shadow-soft hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 hover:border hover:border-brand-electric/30" data-aos="fade-up" data-aos-delay="0">
+                    <div class="absolute top-0 left-0 w-full h-1/2 overflow-hidden">
+                        <div class="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110" style="background-image: url(Imagenes/puente_grua.jpeg);"></div>
+                        <div class="absolute inset-0 bg-brand-royal/10 group-hover:bg-brand-royal/0 transition-colors"></div>
+                    </div>
+                    <div class="absolute top-1/2 left-0 w-full h-1/2 bg-white p-8 flex flex-col justify-between relative z-10">
+                        <div class="absolute -top-10 right-8 w-16 h-16 bg-brand-electric rounded-xl shadow-lg flex items-center justify-center text-white text-2xl group-hover:bg-brand-royal transition-colors transform group-hover:scale-110">
+                            <i class="fas fa-industry"></i>
+                        </div>
+                        <div>
+                            <span class="text-4xl font-display font-bold text-slate-100 absolute bottom-4 right-4 z-0 pointer-events-none group-hover:text-slate-200 transition-colors">02</span>
+                            <h3 class="text-2xl font-bold text-brand-royal mb-3 font-display uppercase tracking-wide relative z-10">Montaje Industrial</h3>
+                            <p class="text-slate-500 text-sm leading-relaxed relative z-10 line-clamp-3 group-hover:text-slate-700 transition-colors">Ejecución de proyectos de alta ingeniería bajo normativa RETIE. Montajes seguros desde la subestación hasta la maquinaria.</p>
+                        </div>
+
+                        <button class="service-btn text-brand-electric text-xs font-bold tracking-widest uppercase flex items-center gap-2 group-hover:text-brand-royal transition-colors mt-4 bg-transparent border-none cursor-pointer"
+                            data-title="Montaje Industrial"
+                            data-desc="Realizamos el montaje completo de sus sistemas de potencia y control. Nos especializamos en proyectos de alta complejidad donde la seguridad y la precisión son innegociables."
+                            data-image="Imagenes/puente_grua.jpeg">
+                            Ver Más <i class="fas fa-arrow-right transform group-hover:translate-x-1 transition-transform"></i>
+                        </button>
+
+                        <!-- Por si alun día escalar la pagina -->
+                        <!-- <span class="text-brand-electric text-xs font-bold tracking-widest uppercase flex items-center gap-2 group-hover:text-brand-royal transition-colors mt-4">Ver Más <i class="fas fa-arrow-right transform group-hover:translate-x-1 transition-transform"></i></span> -->
+                    </div>
+                </div>
+                <!-- Service 3- -->
+                <div class="group relative h-[420px] bg-white rounded-2xl overflow-hidden cursor-pointer shadow-soft hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 hover:border hover:border-brand-electric/30" data-aos="fade-up" data-aos-delay="100">
+                    <div class="absolute top-0 left-0 w-full h-1/2 overflow-hidden">
+                        <div class="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110" style="background-image: url(Imagenes/automatizacion.png);"></div>
+                        <div class="absolute inset-0 bg-brand-royal/10 group-hover:bg-brand-royal/0 transition-colors"></div>
+                    </div>
+                    <div class="absolute top-1/2 left-0 w-full h-1/2 bg-white p-8 flex flex-col justify-between relative z-10">
+                        <div class="absolute -top-10 right-8 w-16 h-16 bg-brand-electric rounded-xl shadow-lg flex items-center justify-center text-white text-2xl group-hover:bg-brand-royal transition-colors transform group-hover:scale-110">
+                            <i class="fas fa-microchip"></i>
+                        </div>
+                        <div>
+                            <span class="text-4xl font-display font-bold text-slate-100 absolute bottom-4 right-4 z-0 pointer-events-none group-hover:text-slate-200 transition-colors">03</span>
+                            <h3 class="text-2xl font-bold text-brand-royal mb-3 font-display uppercase tracking-wide relative z-10">Automatización</h3>
+                            <p class="text-slate-500 text-sm leading-relaxed relative z-10 line-clamp-3 group-hover:text-slate-700 transition-colors">Sistemas inteligentes (PLC/SCADA) para el control de procesos. Aumente la eficiencia y reduzca costos operativos.</p>
+                        </div>
+
+                        <button class="service-btn text-brand-electric text-xs font-bold tracking-widest uppercase flex items-center gap-2 group-hover:text-brand-royal transition-colors mt-4 bg-transparent border-none cursor-pointer"
+                            data-title="Automatización"
+                            data-desc="Transformamos procesos manuales en sistemas automatizados de alta eficiencia. A través de la integración de tecnología de punta, le permitimos tener control total sobre su producción."
+                            data-image="Imagenes/automatizacion2.png">
+                            Ver Más <i class="fas fa-arrow-right transform group-hover:translate-x-1 transition-transform"></i>
+                        </button>
+
+                        <!-- Por si alun día escalar la pagina -->
+                        <!-- <span class="text-brand-electric text-xs font-bold tracking-widest uppercase flex items-center gap-2 group-hover:text-brand-royal transition-colors mt-4">Ver Más <i class="fas fa-arrow-right transform group-hover:translate-x-1 transition-transform"></i></span> -->
+                    </div>
+                </div>
+                <!-- Service 4- -->
+                <div class="group relative h-[420px] bg-white rounded-2xl overflow-hidden cursor-pointer shadow-soft hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 hover:border hover:border-brand-electric/30" data-aos="fade-up" data-aos-delay="200">
+                    <div class="absolute top-0 left-0 w-full h-1/2 overflow-hidden">
+                        <div class="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110" style="background-image: url(Imagenes/iluminacion_led.jpeg);"></div>
+                        <div class="absolute inset-0 bg-brand-royal/10 group-hover:bg-brand-royal/0 transition-colors"></div>
+                    </div>
+                    <div class="absolute top-1/2 left-0 w-full h-1/2 bg-white p-8 flex flex-col justify-between relative z-10">
+                        <div class="absolute -top-10 right-8 w-16 h-16 bg-brand-electric rounded-xl shadow-lg flex items-center justify-center text-white text-2xl group-hover:bg-brand-royal transition-colors transform group-hover:scale-110">
+                            <i class="fas fa-lightbulb"></i>
+                        </div>
+                        <div>
+                            <span class="text-4xl font-display font-bold text-slate-100 absolute bottom-4 right-4 z-0 pointer-events-none group-hover:text-slate-200 transition-colors">04</span>
+                            <h3 class="text-2xl font-bold text-brand-royal mb-3 font-display uppercase tracking-wide relative z-10">Iluminación LED</h3>
+                            <p class="text-slate-500 text-sm leading-relaxed relative z-10 line-clamp-3 group-hover:text-slate-700 transition-colors">Diseño luminotécnico eficiente y estético bajo norma RETILAP. Ahorre energía y modernice sus espacios.</p>
+                        </div>
+
+                        <button class="service-btn text-brand-electric text-xs font-bold tracking-widest uppercase flex items-center gap-2 group-hover:text-brand-royal transition-colors mt-4 bg-transparent border-none cursor-pointer"
+                            data-title="Iluminación LED"
+                            data-desc="Modernice su infraestructura con sistemas de iluminación LED de alta eficiencia. Realizamos estudios luminotécnicos certificados (RETILAP) para garantizar los niveles de luz adecuados, reduciendo su factura de energía y mejorando la productividad en oficinas, bodegas y comercios."
+                            data-image="Imagenes/iluminacion_led1.jpeg">
+                            Ver Más <i class="fas fa-arrow-right transform group-hover:translate-x-1 transition-transform"></i>
+                        </button>
+
+                        <!-- Por si alun día escalar la pagina -->
+                        <!-- <span class="text-brand-electric text-xs font-bold tracking-widest uppercase flex items-center gap-2 group-hover:text-brand-royal transition-colors mt-4">Ver Más <i class="fas fa-arrow-right transform group-hover:translate-x-1 transition-transform"></i></span> -->
+                    </div>
+                </div>
+                <!-- Service 5 -->
+                <div class="group relative h-[420px] bg-white rounded-2xl overflow-hidden cursor-pointer shadow-soft hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 hover:border hover:border-brand-electric/30" data-aos="fade-up" data-aos-delay="500">
+                    <div class="absolute top-0 left-0 w-full h-1/2 overflow-hidden">
+                        <div class="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110" style="background-image: url(Imagenes/consultoria.jpeg);"></div>
+                        <div class="absolute inset-0 bg-brand-royal/10 group-hover:bg-brand-royal/0 transition-colors"></div>
+                    </div>
+                    <div class="absolute top-1/2 left-0 w-full h-1/2 bg-white p-8 flex flex-col justify-between relative z-10">
+                        <div class="absolute -top-10 right-8 w-16 h-16 bg-brand-electric rounded-xl shadow-lg flex items-center justify-center text-white text-2xl group-hover:bg-brand-royal transition-colors transform group-hover:scale-110">
+                            <i class="fas fa-file-signature"></i>
+                        </div>
+                        <div>
+                            <span class="text-4xl font-display font-bold text-slate-100 absolute bottom-4 right-4 z-0 pointer-events-none group-hover:text-slate-200 transition-colors">05</span>
+                            <h3 class="text-2xl font-bold text-brand-royal mb-3 font-display uppercase tracking-wide relative z-10">Consultoría RETIE y RETILAP</h3>
+                            <p class="text-slate-500 text-sm leading-relaxed relative z-10 line-clamp-3 group-hover:text-slate-700 transition-colors">Asesoría, diseño y gestión de trámites para certificación. Garantice el cumplimiento normativo total de su obra.</p>
+                        </div>
+
+                        <button class="service-btn text-brand-electric text-xs font-bold tracking-widest uppercase flex items-center gap-2 group-hover:text-brand-royal transition-colors mt-4 bg-transparent border-none cursor-pointer"
+                            data-title="Consultoría"
+                            data-desc="Evite sanciones y reprocesos en sus proyectos. Ofrecemos consultoría especializada y diseños eléctricos detallados para cumplir con los reglamentos técnicos RETIE y RETILAP. Acompañamos su proyecto desde la ingeniería básica hasta la obtención del dictamen de inspección final."
+                            data-image="Imagenes/ima2.jpeg">
+                            Ver Más <i class="fas fa-arrow-right transform group-hover:translate-x-1 transition-transform"></i>
+                        </button>
+
+                        <!-- Por si alun día escalar la pagina -->
+                        <!-- <span class="text-brand-electric text-xs font-bold tracking-widest uppercase flex items-center gap-2 group-hover:text-brand-royal transition-colors mt-4">Ver Más <i class="fas fa-arrow-right transform group-hover:translate-x-1 transition-transform"></i></span> -->
+                    </div>
+                </div>
+                <!-- Service 6 -->
+                <div class="group relative h-[420px] bg-white rounded-2xl overflow-hidden cursor-pointer shadow-soft hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 hover:border hover:border-brand-electric/30" data-aos="fade-up" data-aos-delay="400">
+                    <div class="absolute top-0 left-0 w-full h-1/2 overflow-hidden">
+                        <div class="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110" style="background-image: url(Imagenes/cargadores_electricos.jpeg);"></div>
+                        <div class="absolute inset-0 bg-brand-royal/10 group-hover:bg-brand-royal/0 transition-colors"></div>
+                    </div>
+                    <div class="absolute top-1/2 left-0 w-full h-1/2 bg-white p-8 flex flex-col justify-between relative z-10">
+                        <div class="absolute -top-10 right-8 w-16 h-16 bg-brand-electric rounded-xl shadow-lg flex items-center justify-center text-white text-2xl group-hover:bg-brand-royal transition-colors transform group-hover:scale-110">
+                            <i class="fas fa-network-wired"></i>
+                        </div>
+                        <div>
+                            <span class="text-4xl font-display font-bold text-slate-100 absolute bottom-4 right-4 z-0 pointer-events-none group-hover:text-slate-200 transition-colors">06</span>
+                            <h3 class="text-2xl font-bold text-brand-royal mb-3 font-display uppercase tracking-wide relative z-10">Cargadores Eléctricos</h3>
+                            <p class="text-slate-500 text-sm leading-relaxed relative z-10 line-clamp-3 group-hover:text-slate-700 transition-colors">Instalación certificada de estaciones de carga vehicular. Infraestructura segura para movilidad eléctrica residencial y comercial.</p>
+                        </div>
+
+                        <button class="service-btn text-brand-electric text-xs font-bold tracking-widest uppercase flex items-center gap-2 group-hover:text-brand-royal transition-colors mt-4 bg-transparent border-none cursor-pointer"
+                            data-title="Cargadores Eléctricos"
+                            data-desc="Prepare su hogar o negocio para el futuro de la movilidad. Realizamos la instalación técnica de cargadores para vehículos eléctricos (Wallbox y electrolineras), asegurando la capacidad de carga adecuada, protecciones eléctricas independientes y cumplimiento de normativa de seguridad."
+                            data-image="Imagenes/cargadores_electricos.jpeg">
+                            Ver Más <i class="fas fa-arrow-right transform group-hover:translate-x-1 transition-transform"></i>
+                        </button>
+
+                        <!-- Por si alun día escalar la pagina -->
+                        <!-- <span class="text-brand-electric text-xs font-bold tracking-widest uppercase flex items-center gap-2 group-hover:text-brand-royal transition-colors mt-4">Ver Más <i class="fas fa-arrow-right transform group-hover:translate-x-1 transition-transform"></i></span> -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- NEW SECTION: VENTA DE INSUMOS (SPLIT LAYOUT) -->
+            <div id="portafolio" class="mt-10 border-t border-slate-200 pt-12">
+                <div class="text-center mb-10" data-aos="fade-up">
+                    <span class="text-brand-electric font-bold tracking-[0.2em] text-lg uppercase">Catálogo de Productos</span>
+                    <h2 class="text-4xl md:text-6xl font-bold text-brand-royal mt-4 mb-6">VENTA DE <span class="text-brand-electric">INSUMOS ELÉCTRICOS</span></h2>
+                    <div class="h-1 w-24 bg-gradient-to-r from-transparent via-brand-royal to-transparent mx-auto rounded-full mb-6"></div>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center max-w-6xl mx-auto">
+                    <!-- Left: Sales Copy -->
+                    <div data-aos="fade-right">
+                        <h4 class="text-2xl md:text-3xl font-bold text-brand-royal mb-6">Suministro certificado para mayoristas y minoristas.</h4>
+                        <p class="text-slate-600 text-lg leading-relaxed mb-6">
+                            No solo diseñamos ingeniería, suministramos la tecnología que la hace posible. Acceda a nuestro stock exclusivo de luminarias LED industriales, cableado certificado y protecciones eléctricas de las mejores marcas del mercado.
+                        </p>
+                        <ul class="space-y-4 mb-8">
+                            <li class="flex items-center text-slate-500 text-lg">
+                                <i class="fas fa-check-circle text-brand-electric mr-3"></i> Garantía directa de fábrica
+                            </li>
+                            <li class="flex items-center text-slate-500 text-lg">
+                                <i class="fas fa-check-circle text-brand-electric mr-3"></i> Productos certificados (RETIE/RETILAP).
+                            </li>
+                            <li class="flex items-center text-slate-500 text-lg">
+                                <i class="fas fa-check-circle text-brand-electric mr-3"></i> Precios especiales por volumen.
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Right: Auto Slider -->
+                    <div class="relative h-[400px] w-full rounded-2xl overflow-hidden shadow-2xl group" data-aos="fade-left">
+                        <div id="product-slider" class="absolute inset-0 w-full h-full">
+                            <!-- Slide 1: iluminaria -->
+                            <img src="Imagenes/insumos_iluminled.png" class="absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 opacity-100 slider-image" alt="Iluminación">
+                            <!-- Slide 2: Cables -->
+                            <img src="Imagenes/insumo_cable.png" class="absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 opacity-0 slider-image" alt="Cable">
+                            <!-- Slide 3: reflector -->
+                            <img src="Imagenes/insumo_reflector.png" class="absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 opacity-0 slider-image" alt="Reflector">
+                            <!-- Slide 4: protecciones -->
+                            <img src="Imagenes/insumo_protecciones.png" class="absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 opacity-0 slider-image" alt="Protecciones">
+                        </div>
+                        
+                        <!-- Overlay Gradient -->
+                        <div class="absolute inset-0 bg-gradient-to-t from-brand-royal/80 via-transparent to-transparent"></div>
+                        
+                        <!-- Slider Caption -->
+                        <div class="absolute bottom-8 left-8 text-white z-20">
+                            <span class="bg-brand-electric text-brand-deep text-xs font-bold px-2 py-1 rounded mb-2 inline-block">DISPONIBLE</span>
+                            <p class="font-bold text-2xl" id="slider-caption">Iluminación LED</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bottom CTA -->
+                <div class="text-center mt-16" data-aos="fade-up">
+                    <a href="https://wa.me/573335555?text=Hola%20Volt%20mAster,%20estoy%20interesado%20en%20conocer%20su%20cat%C3%A1logo%20de%20insumos%20el%C3%A9ctricos.%20%C2%BFMe%20podr%C3%ADan%20dar%20m%C3%A1s%20informaci%C3%B3n?" target="_blank" class="inline-flex items-center gap-3 px-12 py-5 bg-brand-royal text-white font-bold tracking-widest rounded-lg hover:bg-brand-electric transition-all duration-300 shadow-lg hover:shadow-[0_0_20px_rgba(0,163,255,0.4)] transform hover:-translate-y-1">
+                        <i class="fab fa-whatsapp text-2xl"></i>
+                        PREGUNTA POR NUESTRO CATÁLOGO   <!--MENSAJE PARA WHATSAPP: Hola Volt mAster, quisiera ver el catálogo de insumos eléctricos o cotizar un material..." -->
+                    </a>
+                    <p class="text-slate-400 text-sm mt-4 italic">Envíos a todo el país bajo pedido.</p>
+                </div>
+            </div>
+
+
+        </div>
+    </section>
+
+    <!-- Featured Project Section -->
+    <section id="proyectos" class="py-20 relative bg-white overflow-hidden">
+        <div class="absolute -left-40 top-1/4 w-[600px] h-[600px] bg-brand-light rounded-full blur-[150px] pointer-events-none"></div>
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center mb-20">
+                <div class="order-2 lg:order-1" data-aos="fade-right">
+                    <div class="inline-block mb-4">
+                        <span class="text-brand-electric font-bold tracking-[0.2em] text-lg uppercase flex items-center gap-2">
+                            <span class="w-8 h-[2px] bg-brand-electric"></span>
+                            Proyecto Destacado
+                        </span>
+                    </div>
+                    <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold text-brand-royal mb-6 leading-tight">MODERNIZACIÓN <br><span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-electric to-brand-royal">AGROINDUSTRIAL</span></h2>
+                    <p class="text-slate-500 text-lg leading-relaxed mb-8 border-l-4 border-slate-200 pl-6">Diseño y montaje de sistema electromecánico de tracción por cable (Cable Vía) para terrenos de difícil acceso. Reemplazamos la carga animal tradicional por un motor de alto torque, logrando transportar 6 bultos en solo 12 minutos, frente a los 4 bultos y 30 minutos que tomaba el método anterior. Tecnología que multiplica la productividad.</p>
+                    <div class="grid grid-cols-2 gap-6 mb-8">
+                        <div>
+                            <h4 class="text-3xl font-bold text-brand-royal">+50%</h4>
+                            <p class="text-xs font-bold text-slate-400 uppercase tracking-widest">Capacidad de carga</p>
+                        </div>
+                        <div>
+                            <h4 class="text-3xl font-bold text-brand-royal">60%</h4>
+                            <p class="text-xs font-bold text-slate-400 uppercase tracking-widest">Ahorro de tiempo</p>
+                        </div>
+                    </div>
+                    <a href="#contacto" class="text-brand-electric font-bold tracking-widest uppercase text-sm border-b-2 border-brand-electric pb-1 hover:text-brand-royal hover:border-brand-royal transition-all">Solicitar Estudio Similar</a>
+                </div>
+                <div class="order-1 lg:order-2 relative rounded-2xl overflow-hidden shadow-2xl border-4 border-white group" data-aos="fade-left">
+                    <video id="featured-video" class="w-full h-full object-cover aspect-video" playsinline muted loop poster="https://images.unsplash.com/photo-1590247813693-5541d1c609fd?q=80&w=2009&auto=format&fit=crop">
+                        <source src="Videos/carga_cafe.mp4" type="video/mp4">
+                        Tu navegador no soporta videos HTML5.
+                    </video>
+                    <div class="absolute inset-0 bg-brand-royal/10 pointer-events-none"></div>
+                    <!-- Controls Container -->
+                    <div class="absolute bottom-4 left-0 w-[calc(100%-80px)] px-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-30 flex items-center gap-4 bg-gradient-to-t from-black/60 to-transparent pb-4 pt-10 rounded-br-2xl">
+                        <button id="mute-toggle" class="w-8 h-8 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center text-white hover:bg-brand-electric transition-colors border border-white/20">
+                            <i class="fas fa-volume-mute text-xs" id="mute-icon"></i>
+                        </button>
+                        <input type="range" id="volume-slider" min="0" max="1" step="0.1" value="0" class="w-full h-1 bg-white/30 rounded-lg appearance-none cursor-pointer accent-brand-electric">
+                    </div>
+                    <!-- Play Button -->
+                    <button id="video-toggle" class="absolute bottom-6 right-6 w-12 h-12 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center text-brand-royal hover:bg-brand-electric hover:text-white transition-all shadow-lg z-40">
+                        <i class="fas fa-pause text-sm" id="video-icon-main"></i>
+                    </button>
+                    <div class="absolute top-6 left-6 px-3 py-1 bg-brand-electric/90 backdrop-blur text-white text-[10px] font-bold uppercase rounded tracking-wider shadow-sm z-20">Finalizado</div>
+                </div>
+            </div>
+            <!-- Additional Projects Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Project 1 -->
+                <div class="group relative aspect-[4/5] rounded-xl overflow-hidden cursor-pointer shadow-lg" data-aos="fade-up" data-aos-delay="0">
+                    <img src="Imagenes/mto_compresor.jpeg" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Subestación">
+                    <div class="absolute inset-0 bg-gradient-to-t from-brand-royal/90 via-transparent to-transparent opacity-80"></div>
+                    <div class="absolute bottom-0 left-0 w-full p-8 translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                        <div class="h-1 w-12 bg-brand-electric mb-4 transition-all duration-300 group-hover:w-20"></div>
+                        <h4 class="text-xl font-bold text-white mb-1">MANTENIMIENTO DE COMPRESOR</h4>
+                        <p class="text-slate-200 text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300">Diagnóstico y reparación de unidades aire comprimido. Recuperamos la eficiencia y presión de sus equipos críticos.</p>
+                    </div>
+                </div>
+                <!-- Project 2 -->
+                <div class="group relative aspect-[4/5] rounded-xl overflow-hidden cursor-pointer shadow-lg" data-aos="fade-up" data-aos-delay="100">
+                    <img src="Imagenes/mto_puente_grua.png" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Automatización">
+                    <div class="absolute inset-0 bg-gradient-to-t from-brand-royal/90 via-transparent to-transparent opacity-80"></div>
+                    <div class="absolute bottom-0 left-0 w-full p-8 translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                        <div class="h-1 w-12 bg-brand-electric mb-4 transition-all duration-300 group-hover:w-20"></div>
+                        <h4 class="text-xl font-bold text-white mb-1">MANTENIMIENTO PUENTE GRÚA</h4>
+                        <p class="text-slate-200 text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300">Inspección mecánica y eléctrica de sistemas de elevación. Garantizamos maniobras seguras y certificadas en su planta.</p>
+                    </div>
+                </div>
+                <!-- Project 3 -->
+                <div class="group relative aspect-[4/5] rounded-xl overflow-hidden cursor-pointer shadow-lg" data-aos="fade-up" data-aos-delay="200">
+                    <img src="Imagenes/domotica.png" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Data Center">
+                    <div class="absolute inset-0 bg-gradient-to-t from-brand-royal/90 via-transparent to-transparent opacity-80"></div>
+                    <div class="absolute bottom-0 left-0 w-full p-8 translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                        <div class="h-1 w-12 bg-brand-electric mb-4 transition-all duration-300 group-hover:w-20"></div>
+                        <h4 class="text-xl font-bold text-white mb-1">DOMÓTICA (SMART HOME)</h4>
+                        <p class="text-slate-200 text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300">Control total de iluminación, seguridad desde su celular. Transformamos su casa en un espacio inteligente y confiable.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Form Section -->
+    <section id="contacto" class="py-20 bg-brand-light relative border-t border-slate-200 overflow-hidden">
+        <div class="absolute inset-0 overflow-hidden pointer-events-none">
+            <div class="absolute top-0 right-0 w-[800px] h-[800px] bg-brand-electric/5 rounded-full blur-[120px] animate-float"></div>
+            <div class="absolute bottom-0 left-0 w-[600px] h-[600px] bg-brand-royal/5 rounded-full blur-[120px]"></div>
+        </div>
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="max-w-4xl mx-auto bg-white p-10 md:p-16 rounded-3xl shadow-2xl relative border border-slate-100">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-bold text-brand-royal mb-4">INICIE SU <span class="text-brand-electric">PROYECTO</span></h2>
+                    <p class="text-slate-500">Déjenos sus datos y uno de nuestros ingenieros le contactará en menos de 24 horas con una propuesta a su medida.</p>
+                </div>
+                <form class="space-y-8">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div class="relative group">
+                            <input type="text" id="name" placeholder=" " class="floating-input w-full bg-slate-50 border border-slate-200 rounded-lg px-6 py-4 text-brand-royal focus:outline-none focus:border-brand-electric focus:ring-1 focus:ring-brand-electric/50 transition-all peer font-semibold">
+                            <label for="name" class="floating-label absolute left-6 top-4 text-slate-400 text-sm transition-all pointer-events-none px-1 peer-focus:text-brand-electric">Nombre / Contacto</label>
+                        </div>
+                        <div class="relative group">
+                            <input type="text" id="empresa" placeholder=" " class="floating-input w-full bg-slate-50 border border-slate-200 rounded-lg px-6 py-4 text-brand-royal focus:outline-none focus:border-brand-electric focus:ring-1 focus:ring-brand-electric/50 transition-all peer font-semibold">
+                            <label for="empresa" class="floating-label absolute left-6 top-4 text-slate-400 text-sm transition-all pointer-events-none px-1 peer-focus:text-brand-electric">Empresa / Organización</label>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div class="relative group">
+                            <input type="email" id="email" placeholder=" " class="floating-input w-full bg-slate-50 border border-slate-200 rounded-lg px-6 py-4 text-brand-royal focus:outline-none focus:border-brand-electric focus:ring-1 focus:ring-brand-electric/50 transition-all peer font-semibold">
+                            <label for="email" class="floating-label absolute left-6 top-4 text-slate-400 text-sm transition-all pointer-events-none px-1 peer-focus:text-brand-electric">Correo Electrónico</label>
+                        </div>
+                        <div class="relative group">
+                            <input type="tel" id="telefono" placeholder=" " class="floating-input w-full bg-slate-50 border border-slate-200 rounded-lg px-6 py-4 text-brand-royal focus:outline-none focus:border-brand-electric focus:ring-1 focus:ring-brand-electric/50 transition-all peer font-semibold">
+                            <label for="telefono" class="floating-label absolute left-6 top-4 text-slate-400 text-sm transition-all pointer-events-none px-1 peer-focus:text-brand-electric">Teléfono</label>
+                        </div>
+                    </div>
+                    <div class="relative group">
+                        <textarea id="message" rows="4" placeholder="" class="floating-input w-full bg-slate-50 border border-slate-200 rounded-lg px-6 py-4 text-brand-royal focus:outline-none focus:border-brand-electric focus:ring-1 focus:ring-brand-electric/50 transition-all peer font-semibold"></textarea>
+                        <label for="message" class="floating-label absolute left-6 top-4 text-slate-400 text-sm transition-all pointer-events-none px-1 peer-focus:text-brand-electric">Detalles del Requerimiento</label>
+                    </div>
+                    <div class="pt-4 text-center">
+                        <button type="button" class="w-full md:w-auto px-12 py-5 bg-brand-royal text-white font-bold tracking-[0.2em] rounded hover:bg-brand-electric hover:shadow-lg transform hover:-translate-y-1 transition-all duration-300">SOLICITAR COTIZACIÓN</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-[rgb(1,24,52)] text-slate-300 pt-12 pb-10">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+                <!-- Brand -->
+                <div class="space-y-6 pr-6">
+                    <div class="flex items-center gap-2">
+                        <!-- <div class="bg-brand-electric p-1 rounded">
+                            <i class="fas fa-bolt text-white text-xl"></i>
+                        </div> -->
+                        <a href="#" class="flex items-center group">
+                            <!-- Imagen del logo azul, sin paddings extraños -->
+                            <img src="Imagenes/logo_azul.jpg" alt="Volt mAster Logo" class="h-14 md:h-20 w-auto object-contain block p-0 m-0">
+                        </a>
+                        <!-- <span class="text-2xl font-bold font-display tracking-widest text-white">VOLT <span class="text-brand-electric">mASTER</span></span> -->
+                    </div>
+                    <p class="text-sm leading-relaxed text-slate-400">Transformamos la energía en productividad segura. Ingeniería de precisión para la industria 4.0.</p>
+                    <div class="flex gap-4 pt-2">
+                        <a href="#" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-brand-electric hover:text-white transition-all"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-brand-electric hover:text-white transition-all"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-brand-electric hover:text-white transition-all"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-brand-electric hover:text-white transition-all"><i class="fab fa-tiktok"></i></a>
+                    </div>
+                </div>
+                <!-- Links -->
+                <div>
+                    <h4 class="text-white font-bold mb-6">Empresa</h4>
+                    <ul class="space-y-3 text-sm">
+                        <li><a href="#inicio" class="hover:text-brand-electric transition-colors">Inicio</a></li>
+                        <li><a href="#servicios" class="hover:text-brand-electric transition-colors">Servicios</a></li>
+                        <li><a href="#proyectos" class="hover:text-brand-electric transition-colors">Portafolio</a></li>
+                        <li><a href="#contacto" class="hover:text-brand-electric transition-colors">Contacto</a></li>
+                    </ul>
+                </div>
+                <!-- Services -->
+                <div>
+                    <h4 class="text-white font-bold mb-6">Nuestras Especialidades</h4>
+                    <ul class="space-y-3 text-sm">
+                        <li class="hover:text-brand-electric transition-colors">Mantenimiento</li>
+                        <li class="hover:text-brand-electric transition-colors">Montajes Eléctricos</li>
+                        <li class="hover:text-brand-electric transition-colors">Automatización</li>
+                        <li class="hover:text-brand-electric transition-colors">Consultoría RETIE</li>
+                        <li class="hover:text-brand-electric transition-colors">Venta de Insumos</li>
+                    </ul>
+                </div>
+                <!-- Contact -->
+                <div>
+                    <h4 class="text-white font-bold mb-6">Contacto</h4>
+                    <ul class="space-y-4 text-sm">
+                        <li class="flex items-start gap-3"><i class="fas fa-map-marker-alt text-brand-electric mt-1"></i><span>Manizales, Caldas</span></li>
+                        <li class="flex items-center gap-3"><i class="fas fa-phone-alt text-brand-electric"></i><span>+57 3117050755 </span> - <span>+57 3017819343</span></li>
+                        <li class="flex items-center gap-3"><i class="fas fa-envelope text-brand-electric"></i><span>voltmaster542@gmail.com</span></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-slate-500">
+                <p>&copy; 2026 Volt mAster S.A.S. Todos los derechos reservados.</p>
+                <div class="flex gap-6 mr-16"><a href="#" class="hover:text-brand-electric">Privacidad</a><a href="#" class="hover:text-brand-electric">Términos</a></div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Funcionamiento modal -->
+    <div id="service-modal" class="fixed inset-0 z-[9999] hidden items-center justify-center p-4">
+    <div id="modal-backdrop" class="absolute inset-0 bg-slate-900/60 backdrop-blur-sm transition-opacity duration-300 opacity-0 cursor-pointer"></div>
+    <div id="modal-content" class="relative bg-white rounded-2xl shadow-2xl w-full max-w-5xl overflow-hidden transform scale-95 opacity-0 transition-all duration-300 flex flex-col md:flex-row max-h-[90vh]"> 
+        <button id="modal-close" class="absolute top-4 right-4 z-20 w-10 h-10 bg-white/80 backdrop-blur rounded-full flex items-center justify-center text-slate-500 hover:text-brand-electric hover:bg-white transition-colors shadow-sm cursor-pointer border-none group">
+            <i class="fas fa-times text-xl group-hover:rotate-90 transition-transform duration-300"></i>
+        </button>
+        <div class="w-full md:w-1/2 h-64 md:h-auto relative bg-slate-100">
+            <img id="modal-img" src="" alt="Detalle del servicio" class="absolute inset-0 w-full h-full object-cover">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent md:bg-gradient-to-r md:from-transparent md:to-black/10"></div>
+        </div>
+        <div class="w-full md:w-1/2 p-8 md:p-12 overflow-y-auto flex flex-col justify-center bg-white relative">
+            <div class="w-12 h-1 bg-brand-electric mb-6 rounded-full"></div>
+            <h3 id="modal-title" class="text-3xl md:text-4xl font-bold text-brand-royal mb-6 font-display uppercase tracking-wide"></h3>
+            <div class="prose prose-slate text-slate-500 leading-relaxed text-base md:text-lg">
+                <p id="modal-desc"></p>
+            </div>
+            <div class="mt-8 pt-8 border-t border-slate-100">
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <!-- Floating WhatsApp -->
+    <a href="https://wa.me/1234567890" target="_blank" class="fixed bottom-8 right-8 z-50 group">
+        <div class="relative flex items-center justify-center w-14 h-14 bg-green-500 rounded-full shadow-lg hover:bg-green-400 transition-all duration-300 transform group-hover:scale-110">
+            <i class="fab fa-whatsapp text-white text-3xl"></i>
+            <span class="absolute -inset-2 rounded-full border border-green-500/30 animate-ping"></span>
+        </div>
+    </a>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
