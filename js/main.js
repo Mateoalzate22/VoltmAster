@@ -250,19 +250,29 @@ document.addEventListener('DOMContentLoaded', function() {
 
     if(contactForm) {
         contactForm.addEventListener('submit', async function(e) {
-            e.preventDefault(); // Evita que la página se recargue
+            
+            // 1. SEGURIDAD EXTRA: Validar antes de hacer nada
+            if (!contactForm.checkValidity()) {
+                e.preventDefault();
+                e.stopPropagation();
+                // Esto fuerza al navegador a mostrar los globitos de error si no salieron
+                contactForm.reportValidity(); 
+                return; // Detiene la ejecución aquí mismo. No envía nada.
+            }
 
-            // 1. Cambiar estado del botón a "Enviando..."
+            e.preventDefault(); // Evita que la página se recargue (si es válido)
+
+            // 2. Cambiar estado del botón a "Enviando..."
             const originalBtnContent = submitBtn.innerHTML;
             submitBtn.disabled = true;
             submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> ENVIANDO...';
             submitBtn.classList.add('opacity-75', 'cursor-not-allowed');
 
-            // 2. Recoger los datos
+            // 3. Recoger los datos
             const formData = new FormData(contactForm);
 
             try {
-                // 3. Enviar datos a Formspree (AJAX)
+                // 4. Enviar datos a Formspree (AJAX)
                 const response = await fetch(FORMSPREE_ENDPOINT, {
                     method: 'POST',
                     body: formData,
@@ -298,29 +308,37 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Funciones del Modal del formulario
     function showModal() {
+        if(!successModal) return; // Validación de existencia
         successModal.classList.remove('hidden');
         successModal.classList.add('flex');
         
         // Pequeño delay para la animación de opacidad
         setTimeout(() => {
             successModal.classList.remove('opacity-0');
-            successModal.querySelector('div').classList.remove('scale-95');
-            successModal.querySelector('div').classList.add('scale-100');
+            const content = successModal.querySelector('div');
+            if(content) {
+                content.classList.remove('scale-95');
+                content.classList.add('scale-100');
+            }
         }, 10);
 
         // Auto-cierre a los 8 segundos
         setTimeout(() => {
-            // Solo cerramos si el usuario no lo ha cerrado ya
-            if (!successModal.classList.contains('hidden')) {
+            // Solo cerramos si el usuario no lo ha cerrado ya y si el modal existe
+            if (successModal && !successModal.classList.contains('hidden')) {
                 closeModal();
             }
         }, 8000);
     }
 
     function closeModal() {
+        if(!successModal) return;
         successModal.classList.add('opacity-0');
-        successModal.querySelector('div').classList.remove('scale-100');
-        successModal.querySelector('div').classList.add('scale-95');
+        const content = successModal.querySelector('div');
+        if(content) {
+            content.classList.remove('scale-100');
+            content.classList.add('scale-95');
+        }
 
         setTimeout(() => {
             successModal.classList.add('hidden');
