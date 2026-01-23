@@ -233,3 +233,115 @@
     }
 
 })();
+
+
+//Logica formulario coon fromspree y modal de confirmación
+document.addEventListener('DOMContentLoaded', function() {
+    
+    // --- LÓGICA DEL FORMULARIO Y MODAL ---
+    const contactForm = document.getElementById('contact-form');
+    const submitBtn = document.getElementById('submit-btn');
+    const successModal = document.getElementById('success-modal');
+    const closeModalBtn = document.getElementById('close-modal-btn');
+    const closeModalAction = document.getElementById('close-modal-action');
+    
+    // TU LINK DE FORMSPREE
+    const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xaqeqnby';
+
+    if(contactForm) {
+        contactForm.addEventListener('submit', async function(e) {
+            e.preventDefault(); // Evita que la página se recargue
+
+            // 1. Cambiar estado del botón a "Enviando..."
+            const originalBtnContent = submitBtn.innerHTML;
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> ENVIANDO...';
+            submitBtn.classList.add('opacity-75', 'cursor-not-allowed');
+
+            // 2. Recoger los datos
+            const formData = new FormData(contactForm);
+
+            try {
+                // 3. Enviar datos a Formspree (AJAX)
+                const response = await fetch(FORMSPREE_ENDPOINT, {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                });
+
+                if (response.ok) {
+                    // ÉXITO
+                    contactForm.reset(); // Limpiar inputs
+                    showModal();         // Mostrar modal verde
+                } else {
+                    // ERROR DE FORMSPREE
+                    const data = await response.json();
+                    if (Object.hasOwn(data, 'errors')) {
+                        alert(data["errors"].map(error => error["message"]).join(", "));
+                    } else {
+                        alert("Hubo un error al enviar el formulario. Por favor intenta nuevamente.");
+                    }
+                }
+            } catch (error) {
+                // ERROR DE RED
+                alert("Error de conexión. Verifica tu internet e intenta de nuevo.");
+            } finally {
+                // Restaurar el botón siempre
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = originalBtnContent;
+                submitBtn.classList.remove('opacity-75', 'cursor-not-allowed');
+            }
+        });
+    }
+
+    // Funciones del Modal del formulario
+    function showModal() {
+        successModal.classList.remove('hidden');
+        successModal.classList.add('flex');
+        
+        // Pequeño delay para la animación de opacidad
+        setTimeout(() => {
+            successModal.classList.remove('opacity-0');
+            successModal.querySelector('div').classList.remove('scale-95');
+            successModal.querySelector('div').classList.add('scale-100');
+        }, 10);
+
+        // Auto-cierre a los 8 segundos
+        setTimeout(() => {
+            // Solo cerramos si el usuario no lo ha cerrado ya
+            if (!successModal.classList.contains('hidden')) {
+                closeModal();
+            }
+        }, 8000);
+    }
+
+    function closeModal() {
+        successModal.classList.add('opacity-0');
+        successModal.querySelector('div').classList.remove('scale-100');
+        successModal.querySelector('div').classList.add('scale-95');
+
+        setTimeout(() => {
+            successModal.classList.add('hidden');
+            successModal.classList.remove('flex');
+        }, 300);
+    }
+
+    // Event Listeners para cerrar
+    if(closeModalBtn) closeModalBtn.addEventListener('click', closeModal);
+    if(closeModalAction) closeModalAction.addEventListener('click', closeModal);
+    
+    // Cerrar clickeando afuera
+    if(successModal) {
+        successModal.addEventListener('click', function(e) {
+            if (e.target === successModal) {
+                closeModal();
+            }
+        });
+    }
+});
+
+
+// Actualizar año del footer automáticamente
+document.getElementById('year').textContent = new Date().getFullYear();
